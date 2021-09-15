@@ -1,3 +1,14 @@
+# Steps to run the project:
+
+# To create the database:
+php artisan migrate:fresh
+
+# To generate the seeds
+php artisan db:seed
+
+# Instruction to change the password
+App/console/ChangePassword you can define a default user to change the password in the variable $signature, right now its admin@admin.com.
+Run the command php artisan change:password AndPasswordDesired
 
 # Software Engineer (Mid-Level) - Coding challenge - User management test
 
