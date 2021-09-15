@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-       return view('register');
+        $posts = Post::where('user_id','=',Auth::id())->get();
+        return view('components.posts',['posts' => $posts]);
     }
 
     /**
@@ -25,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('register');
     }
 
     /**
@@ -36,13 +38,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       $attributes = $request->validate([
+        $request['password'] = bcrypt($request['password']);
+        $attributes = $request->validate([
         'name' => 'required|max:255',
-        'email'  => 'required|max:255',
-        'password' => 'required|max:255|min:4',
+        'email' => 'required|email|max:255|unique:users,email',
+        'password' => 'required|max:255|min:3',
        ]);
-       User::create($attributes);
-       return redirect('/');
+       
+       $user = User::create($attributes);
+       Auth::login($user);
+       return view('components.posts');
+    
     }
 
     /**

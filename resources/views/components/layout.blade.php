@@ -13,14 +13,18 @@
             .user-container {
                 margin: 0 auto;
             }
+            .post {
+                flex-flow: column;
+                align-items: center;
+                display: flex;
+                margin: 0 30%;
+            }
         </style>
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/signup">Register</a></li>
-            </ul>
+        <nav class="flex justify-right bg-blue-300 mb-10 p-3">
+            <a class="bg-white mr-4 p-2 rounded" href="/">Login</a>
+            <a class="bg-white p-2 rounded" href="/signup">Register</a>
         </nav>
         {{ $slot }}
     </body>
